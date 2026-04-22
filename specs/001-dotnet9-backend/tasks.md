@@ -11,9 +11,9 @@
 
 **Purpose**: Initialize the backend solution and development baseline under `backend/`
 
-- [ ] T001 Create the solution and project structure in `backend/TicTacToe.sln`, `backend/src/TicTacToe.Api/TicTacToe.Api.csproj`, and `backend/tests/TicTacToe.Api.Tests/TicTacToe.Api.Tests.csproj`
-- [ ] T002 Configure .NET 9 dependencies, test packages, and project references in `backend/src/TicTacToe.Api/TicTacToe.Api.csproj` and `backend/tests/TicTacToe.Api.Tests/TicTacToe.Api.Tests.csproj`
-- [ ] T003 [P] Create container build files in `backend/Dockerfile` and `backend/.dockerignore`
+- [x] T001 Create the solution and project structure in `backend/TicTacToe.sln`, `backend/src/TicTacToe.Api/TicTacToe.Api.csproj`, and `backend/tests/TicTacToe.Api.Tests/TicTacToe.Api.Tests.csproj`
+- [x] T002 Configure .NET 9 dependencies, test packages, and project references in `backend/src/TicTacToe.Api/TicTacToe.Api.csproj` and `backend/tests/TicTacToe.Api.Tests/TicTacToe.Api.Tests.csproj`
+- [x] T003 [P] Create container build files in `backend/Dockerfile` and `backend/.dockerignore`
 
 ---
 
@@ -23,11 +23,11 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Create shared game domain models in `backend/src/TicTacToe.Api/Models/GameState.cs`, `backend/src/TicTacToe.Api/Models/MoveRequest.cs`, and `backend/src/TicTacToe.Api/Models/ErrorResponse.cs`
-- [ ] T005 [P] Implement rule and request validation helpers in `backend/src/TicTacToe.Api/Validation/GameRules.cs` and `backend/src/TicTacToe.Api/Validation/MoveRequestValidator.cs`
-- [ ] T006 [P] Implement the in-memory service contract and thread-safe game store in `backend/src/TicTacToe.Api/Services/IGameService.cs` and `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
-- [ ] T007 [P] Configure application bootstrap, dependency injection, JSON serialization, and global error handling in `backend/src/TicTacToe.Api/Program.cs`
-- [ ] T008 Create endpoint registration scaffolding in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
+- [x] T004 Create shared game domain models in `backend/src/TicTacToe.Api/Models/GameState.cs`, `backend/src/TicTacToe.Api/Models/MoveRequest.cs`, and `backend/src/TicTacToe.Api/Models/ErrorResponse.cs`
+- [x] T005 [P] Implement rule and request validation helpers in `backend/src/TicTacToe.Api/Validation/GameRules.cs` and `backend/src/TicTacToe.Api/Validation/MoveRequestValidator.cs`
+- [x] T006 [P] Implement the in-memory service contract and thread-safe game store in `backend/src/TicTacToe.Api/Services/IGameService.cs` and `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
+- [x] T007 [P] Configure application bootstrap, dependency injection, JSON serialization, and global error handling in `backend/src/TicTacToe.Api/Program.cs`
+- [x] T008 Create endpoint registration scaffolding in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
 
 **Checkpoint**: Foundation ready. User story implementation can begin.
 
@@ -41,14 +41,14 @@
 
 ### Tests for User Story 1
 
-- [ ] T009 [P] [US1] Add contract test for `POST /games` in `backend/tests/TicTacToe.Api.Tests/Contract/CreateGameContractTests.cs`
-- [ ] T010 [P] [US1] Add integration test for the create-game flow in `backend/tests/TicTacToe.Api.Tests/Integration/CreateGameIntegrationTests.cs`
-- [ ] T011 [P] [US1] Add unit tests for initial game creation rules in `backend/tests/TicTacToe.Api.Tests/Unit/GameCreationRulesTests.cs`
+- [x] T009 [P] [US1] Add contract test for `POST /games` in `backend/tests/TicTacToe.Api.Tests/Contract/CreateGameContractTests.cs`
+- [x] T010 [P] [US1] Add integration test for the create-game flow in `backend/tests/TicTacToe.Api.Tests/Integration/CreateGameIntegrationTests.cs`
+- [x] T011 [P] [US1] Add unit tests for initial game creation rules in `backend/tests/TicTacToe.Api.Tests/Unit/GameCreationRulesTests.cs`
 
 ### Implementation for User Story 1
 
-- [ ] T012 [US1] Implement new game creation behavior in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
-- [ ] T013 [US1] Implement the `POST /games` endpoint and response mapping in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
+- [x] T012 [US1] Implement new game creation behavior in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
+- [x] T013 [US1] Implement the `POST /games` endpoint and response mapping in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
 
 **Checkpoint**: User Story 1 returns the contract-compliant initial game state and is testable on its own.
 
@@ -62,13 +62,13 @@
 
 ### Tests for User Story 2
 
-- [ ] T014 [P] [US2] Add contract test for `GET /games/{gameId}` in `backend/tests/TicTacToe.Api.Tests/Contract/GetGameContractTests.cs`
-- [ ] T015 [P] [US2] Add integration test for existing and missing game retrieval in `backend/tests/TicTacToe.Api.Tests/Integration/GetGameIntegrationTests.cs`
+- [x] T014 [P] [US2] Add contract test for `GET /games/{gameId}` in `backend/tests/TicTacToe.Api.Tests/Contract/GetGameContractTests.cs`
+- [x] T015 [P] [US2] Add integration test for existing and missing game retrieval in `backend/tests/TicTacToe.Api.Tests/Integration/GetGameIntegrationTests.cs`
 
 ### Implementation for User Story 2
 
-- [ ] T016 [US2] Implement game lookup behavior in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
-- [ ] T017 [US2] Implement the `GET /games/{gameId}` endpoint and `404` error mapping in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
+- [x] T016 [US2] Implement game lookup behavior in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
+- [x] T017 [US2] Implement the `GET /games/{gameId}` endpoint and `404` error mapping in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
 
 **Checkpoint**: User Stories 1 and 2 work together, and game state retrieval is independently verifiable.
 
@@ -82,13 +82,13 @@
 
 ### Tests for User Story 3
 
-- [ ] T018 [P] [US3] Add contract test for `POST /games/{gameId}/join` in `backend/tests/TicTacToe.Api.Tests/Contract/JoinGameContractTests.cs`
-- [ ] T019 [P] [US3] Add integration test for join success and full-game rejection in `backend/tests/TicTacToe.Api.Tests/Integration/JoinGameIntegrationTests.cs`
+- [x] T018 [P] [US3] Add contract test for `POST /games/{gameId}/join` in `backend/tests/TicTacToe.Api.Tests/Contract/JoinGameContractTests.cs`
+- [x] T019 [P] [US3] Add integration test for join success and full-game rejection in `backend/tests/TicTacToe.Api.Tests/Integration/JoinGameIntegrationTests.cs`
 
 ### Implementation for User Story 3
 
-- [ ] T020 [US3] Implement join-game transition rules in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
-- [ ] T021 [US3] Implement the `POST /games/{gameId}/join` endpoint and error mapping in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
+- [x] T020 [US3] Implement join-game transition rules in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
+- [x] T021 [US3] Implement the `POST /games/{gameId}/join` endpoint and error mapping in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
 
 **Checkpoint**: User Stories 1 through 3 support game creation, lookup, and transition to active play.
 
@@ -102,14 +102,14 @@
 
 ### Tests for User Story 4
 
-- [ ] T022 [P] [US4] Add contract test for `POST /games/{gameId}/move` in `backend/tests/TicTacToe.Api.Tests/Contract/MakeMoveContractTests.cs`
-- [ ] T023 [P] [US4] Add integration test for valid and invalid move scenarios in `backend/tests/TicTacToe.Api.Tests/Integration/MakeMoveIntegrationTests.cs`
-- [ ] T024 [P] [US4] Add unit tests for turn enforcement, win detection, and draw detection in `backend/tests/TicTacToe.Api.Tests/Unit/GameRuleEvaluationTests.cs`
+- [x] T022 [P] [US4] Add contract test for `POST /games/{gameId}/move` in `backend/tests/TicTacToe.Api.Tests/Contract/MakeMoveContractTests.cs`
+- [x] T023 [P] [US4] Add integration test for valid and invalid move scenarios in `backend/tests/TicTacToe.Api.Tests/Integration/MakeMoveIntegrationTests.cs`
+- [x] T024 [P] [US4] Add unit tests for turn enforcement, win detection, and draw detection in `backend/tests/TicTacToe.Api.Tests/Unit/GameRuleEvaluationTests.cs`
 
 ### Implementation for User Story 4
 
-- [ ] T025 [US4] Implement move validation, board mutation, and win or draw evaluation in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
-- [ ] T026 [US4] Implement the `POST /games/{gameId}/move` endpoint and request validation in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
+- [x] T025 [US4] Implement move validation, board mutation, and win or draw evaluation in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
+- [x] T026 [US4] Implement the `POST /games/{gameId}/move` endpoint and request validation in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
 
 **Checkpoint**: User Stories 1 through 4 deliver a fully playable local game flow.
 
@@ -123,13 +123,13 @@
 
 ### Tests for User Story 5
 
-- [ ] T027 [P] [US5] Add integration test for two-client polling visibility in `backend/tests/TicTacToe.Api.Tests/Integration/RealtimePollingIntegrationTests.cs`
-- [ ] T028 [P] [US5] Add integration test for concurrent independent games without cross-talk in `backend/tests/TicTacToe.Api.Tests/Integration/ConcurrentGamesIntegrationTests.cs`
+- [x] T027 [P] [US5] Add integration test for two-client polling visibility in `backend/tests/TicTacToe.Api.Tests/Integration/RealtimePollingIntegrationTests.cs`
+- [x] T028 [P] [US5] Add integration test for concurrent independent games without cross-talk in `backend/tests/TicTacToe.Api.Tests/Integration/ConcurrentGamesIntegrationTests.cs`
 
 ### Implementation for User Story 5
 
-- [ ] T029 [US5] Harden concurrent read and write behavior for polling clients in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
-- [ ] T030 [US5] Add polling-friendly cache control behavior to game retrieval responses in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
+- [x] T029 [US5] Harden concurrent read and write behavior for polling clients in `backend/src/TicTacToe.Api/Services/InMemoryGameService.cs`
+- [x] T030 [US5] Add polling-friendly cache control behavior to game retrieval responses in `backend/src/TicTacToe.Api/Endpoints/GameEndpoints.cs`
 
 **Checkpoint**: All user stories are complete, and the local two-tab polling experience is validated.
 
@@ -139,10 +139,10 @@
 
 **Purpose**: Final improvements that affect multiple user stories
 
-- [ ] T031 [P] Add final Docker runtime wiring and port configuration validation in `backend/Dockerfile` and `backend/src/TicTacToe.Api/Program.cs`
-- [ ] T032 [P] Add end-to-end quickstart validation coverage in `backend/tests/TicTacToe.Api.Tests/Integration/QuickstartSmokeTests.cs`
-- [ ] T033 Update local run and verification steps in `specs/001-dotnet9-backend/quickstart.md`
-- [ ] T034 Run the full backend validation workflow in `backend/tests/TicTacToe.Api.Tests` and verify the container build from `backend/Dockerfile`
+- [x] T031 [P] Add final Docker runtime wiring and port configuration validation in `backend/Dockerfile` and `backend/src/TicTacToe.Api/Program.cs`
+- [x] T032 [P] Add end-to-end quickstart validation coverage in `backend/tests/TicTacToe.Api.Tests/Integration/QuickstartSmokeTests.cs`
+- [x] T033 Update local run and verification steps in `specs/001-dotnet9-backend/quickstart.md`
+- [x] T034 Run the full backend validation workflow in `backend/tests/TicTacToe.Api.Tests` and verify the container build from `backend/Dockerfile`
 
 ---
 

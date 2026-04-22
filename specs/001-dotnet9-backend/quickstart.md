@@ -5,6 +5,7 @@
 - .NET 9 SDK installed
 - Docker installed for containerized execution
 - Terminal opened at repository root
+- `dotnet --version` returns a 9.x SDK before local build and test commands are run
 
 ## Project layout
 
@@ -21,11 +22,11 @@ backend/
 1. Create the backend project structure under `backend/`.
 2. Restore dependencies:
    ```bash
-   dotnet restore backend/src/TicTacToe.Api
+   dotnet restore backend/src/TicTacToe.Api/TicTacToe.Api.csproj
    ```
 3. Run the API on port 3000:
    ```bash
-   ASPNETCORE_URLS=http://localhost:3000 dotnet run --project backend/src/TicTacToe.Api
+   ASPNETCORE_URLS=http://localhost:3000 dotnet run --project backend/src/TicTacToe.Api/TicTacToe.Api.csproj
    ```
 
 ## Run tests
@@ -38,7 +39,7 @@ dotnet test backend/tests/TicTacToe.Api.Tests
 
 1. Build the image:
    ```bash
-   docker build -t tictactoe-backend -f backend/Dockerfile .
+   docker build -t tictactoe-backend -f backend/Dockerfile backend
    ```
 2. Run the container:
    ```bash
@@ -78,3 +79,4 @@ curl -X POST http://localhost:3000/games/<gameId>/move \
 - Responses must match the JSON contract in the constitution.
 - The API must stay local-only and use in-memory storage.
 - Frontend polling against `GET /games/{gameId}` should observe move updates within two seconds.
+- `docker build -t tictactoe-backend -f backend/Dockerfile backend` must succeed before release.
