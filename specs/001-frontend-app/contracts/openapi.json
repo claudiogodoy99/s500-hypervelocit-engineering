@@ -1,0 +1,236 @@
+{
+  "$schema": "https://spec.openapis.org/oas/3.1/schema/2022-10-07",
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Jogo da Velha — Frontend/Backend Contract",
+    "version": "1.0.0",
+    "description": "Authoritative HTTP contract between the Tic-Tac-Toe frontend and backend, transcribed from the S500 constitution. This document is consumed by the frontend for type generation and mock-service-worker fixtures. Any divergence from constitution.md is a bug in this file."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local backend (constitution default)"
+    }
+  ],
+  "paths": {
+    "/games": {
+      "post": {
+        "summary": "Create a new game",
+        "operationId": "createGame",
+        "responses": {
+          "201": {
+            "description": "Game created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Game" },
+                "example": {
+                  "gameId": "abc123",
+                  "board": [["","",""],["","",""],["","",""]],
+                  "currentPlayer": "X",
+                  "status": "waiting",
+                  "winner": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/games/{gameId}": {
+      "parameters": [
+        { "$ref": "#/components/parameters/GameId" }
+      ],
+      "get": {
+        "summary": "Get current game state",
+        "operationId": "getGame",
+        "responses": {
+          "200": {
+            "description": "Current game state",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Game" }
+              }
+            }
+          },
+          "404": {
+            "description": "Game not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" },
+                "example": { "error": "Game not found" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/games/{gameId}/join": {
+      "parameters": [
+        { "$ref": "#/components/parameters/GameId" }
+      ],
+      "post": {
+        "summary": "Join an existing game as the second player",
+        "operationId": "joinGame",
+        "responses": {
+          "200": {
+            "description": "Successfully joined",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Game" }
+              }
+            }
+          },
+          "400": {
+            "description": "Game is already full",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" },
+                "example": { "error": "Game is already full" }
+              }
+            }
+          },
+          "404": {
+            "description": "Game not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" },
+                "example": { "error": "Game not found" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/games/{gameId}/move": {
+      "parameters": [
+        { "$ref": "#/components/parameters/GameId" }
+      ],
+      "post": {
+        "summary": "Make a move",
+        "operationId": "makeMove",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/MoveRequest" },
+              "example": { "player": "X", "row": 0, "col": 1 }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Move accepted; returns updated game state",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Game" }
+              }
+            }
+          },
+          "400": {
+            "description": "Move rejected",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" },
+                "examples": {
+                  "notYourTurn": { "value": { "error": "Not your turn" } },
+                  "cellOccupied": { "value": { "error": "Cell already occupied" } },
+                  "gameOver": { "value": { "error": "Game is already over" } }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Game not found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ApiError" },
+                "example": { "error": "Game not found" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "GameId": {
+        "name": "gameId",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string", "minLength": 1 },
+        "description": "Opaque identifier returned by POST /games."
+      }
+    },
+    "schemas": {
+      "Cell": {
+        "type": "string",
+        "enum": ["", "X", "O"]
+      },
+      "Marker": {
+        "type": "string",
+        "enum": ["X", "O"]
+      },
+      "GameStatus": {
+        "type": "string",
+        "enum": ["waiting", "in_progress", "finished"]
+      },
+      "Winner": {
+        "oneOf": [
+          { "type": "string", "enum": ["X", "O", "draw"] },
+          { "type": "null" }
+        ]
+      },
+      "Board": {
+        "type": "array",
+        "minItems": 3,
+        "maxItems": 3,
+        "items": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": { "$ref": "#/components/schemas/Cell" }
+        }
+      },
+      "Game": {
+        "type": "object",
+        "required": ["gameId", "board", "currentPlayer", "status", "winner"],
+        "additionalProperties": false,
+        "properties": {
+          "gameId": { "type": "string", "minLength": 1 },
+          "board": { "$ref": "#/components/schemas/Board" },
+          "currentPlayer": { "$ref": "#/components/schemas/Marker" },
+          "status": { "$ref": "#/components/schemas/GameStatus" },
+          "winner": { "$ref": "#/components/schemas/Winner" }
+        }
+      },
+      "MoveRequest": {
+        "type": "object",
+        "required": ["player", "row", "col"],
+        "additionalProperties": false,
+        "properties": {
+          "player": { "$ref": "#/components/schemas/Marker" },
+          "row": { "type": "integer", "minimum": 0, "maximum": 2 },
+          "col": { "type": "integer", "minimum": 0, "maximum": 2 }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "required": ["error"],
+        "additionalProperties": false,
+        "properties": {
+          "error": {
+            "type": "string",
+            "enum": [
+              "Game not found",
+              "Game is already full",
+              "Not your turn",
+              "Cell already occupied",
+              "Game is already over"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
