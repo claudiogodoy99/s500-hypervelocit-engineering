@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: S500 Tic-Tac-Toe Backend API
+  version: 1.0.0
+  description: Local-only backend contract for the S500 Tic-Tac-Toe challenge.
+servers:
+  - url: http://localhost:3000
+paths:
+  /games:
+    post:
+      summary: Create a new game
+      operationId: createGame
+      responses:
+        '201':
+          description: Game created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+  /games/{gameId}:
+    get:
+      summary: Get game state
+      operationId: getGame
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      responses:
+        '200':
+          description: Current game state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '404':
+          description: Game not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notFound:
+                  value:
+                    error: Game not found
+  /games/{gameId}/join:
+    post:
+      summary: Join an existing game
+      operationId: joinGame
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      responses:
+        '200':
+          description: Game joined
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Game is already full
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                alreadyFull:
+                  value:
+                    error: Game is already full
+  /games/{gameId}/move:
+    post:
+      summary: Make a move
+      operationId: makeMove
+      parameters:
+        - $ref: '#/components/parameters/GameId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MoveRequest'
+      responses:
+        '200':
+          description: Updated game state after a valid move
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Game'
+        '400':
+          description: Invalid move
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                notYourTurn:
+                  value:
+                    error: Not your turn
+                occupied:
+                  value:
+                    error: Cell already occupied
+                alreadyOver:
+                  value:
+                    error: Game is already over
+components:
+  parameters:
+    GameId:
+      name: gameId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Cell:
+      type: string
+      enum: ['', 'X', 'O']
+    BoardRow:
+      type: array
+      minItems: 3
+      maxItems: 3
+      items:
+        $ref: '#/components/schemas/Cell'
+    Game:
+      type: object
+      required:
+        - gameId
+        - board
+        - currentPlayer
+        - status
+        - winner
+      properties:
+        gameId:
+          type: string
+        board:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items:
+            $ref: '#/components/schemas/BoardRow'
+        currentPlayer:
+          type: string
+          enum: ['X', 'O']
+        status:
+          type: string
+          enum: [waiting, in_progress, finished]
+        winner:
+          anyOf:
+            - type: 'null'
+            - type: string
+              enum: ['X', 'O', draw]
+    MoveRequest:
+      type: object
+      required:
+        - player
+        - row
+        - col
+      properties:
+        player:
+          type: string
+          enum: ['X', 'O']
+        row:
+          type: integer
+          minimum: 0
+          maximum: 2
+        col:
+          type: integer
+          minimum: 0
+          maximum: 2
+    ErrorResponse:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: string
