@@ -36,7 +36,6 @@ function App() {
       localStorage.setItem('gameId', game.gameId);
       localStorage.setItem('playerMarker', playerMarker);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [game?.gameId, playerMarker]);
 
   const handlePollUpdate = useCallback((updatedGame: Game) => {
